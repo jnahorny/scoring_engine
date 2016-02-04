@@ -1,4 +1,4 @@
-Cyberengine::Application.routes.draw do
+ScoringEngine::Application.routes.draw do
   root to: 'static#welcome'
   get 'welcome', as: 'welcome', controller: :static
   get 'scoreboard', as: 'scoreboard', controller: :static
@@ -9,7 +9,7 @@ Cyberengine::Application.routes.draw do
     resources :servers do
       resources :services do
         # Service modals
-        resources :checks do 
+        resources :checks do
           get 'modal', on: :member
           get 'modal', on: :collection
         end
@@ -23,7 +23,7 @@ Cyberengine::Application.routes.draw do
         end
       end
       # Server modals
-      resources :checks do 
+      resources :checks do
         get 'modal', on: :collection
       end
       resources :users do

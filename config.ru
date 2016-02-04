@@ -2,4 +2,4 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 require ::File.expand_path('../lib/scoring_engine/models',  __FILE__)
-run Cyberengine::Application
+run ScoringEngine::Application

@@ -3,8 +3,8 @@
 
 en:
   defaults:
-    cyberengine:
-      title: 'Cyberengine'
+    scoringengine:
+      title: 'ScoringEngine'
       url: 'https://github.com/griffithchaffee/cyberengine'
-      name: 'Cyberengine'
+      name: 'ScoringEngine'
       author: 'Griffith Chaffee'

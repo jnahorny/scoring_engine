@@ -1,6 +1,6 @@
 # Introduction
 
-Scoringengine is the combination of a Ruby on Rails web front-end and backend service checks. Cyberengine is designed to check and score common network services used in "blueteam-redteam-whiteteam" competitions and provide a web interface for teams about their servers and services.
+ScoringEngine is the combination of a Ruby on Rails web front-end and backend service checks. ScoringEngine is designed to check and score common network services used in "blueteam-redteam-whiteteam" competitions and provide a web interface for teams about their servers and services.
 
 
 ## Setup Overview
@@ -20,15 +20,15 @@ Scoringengine is the combination of a Ruby on Rails web front-end and backend se
 The rails frontend is a fully functional application that can authenticate members and provides them access to their teams servers and services. This allows them to view their current status and position in the competition. Whiteteam members have full access to all parts of the application while blueteam members can only access their own information. Teams can update service user's individually or CSV style.
 
 
-## Cyberengine Installation Process
+## ScoringEngine Installation Process
 
-[Installation Steps on Wiki](https://github.com/pwnbus/scoringengine-website/wiki)
+[Installation Steps on Wiki](https://github.com/pwnbus/scoring_engine/wiki)
 
 
 ## Important files
 
-**config/initializers/cyberengine.rb**
-* Cyberengine configuration file
+**config/initializers/scoringengine.rb**
+* ScoringEngine configuration file
 * Define application title (Default: ISTS)
 * Define application brand (Default: ISTS)
 * Different team permissions can be setup in this file (E.g: allow username updates)
@@ -38,11 +38,8 @@ The rails frontend is a fully functional application that can authenticate membe
 * Should be modified to contain information about competition and sponsors
 
 **config/database.yml**
-* Database connection setup - default: MySQL - Username: cyberengine - Password: cyberengine
+* Database connection setup - default: MySQL - Username: scoringengine - Password: scoringengine
 
-
-## Checks
-* Please see [cyberengine-checks](https://github.com/griffithchaffee/cyberengine-checks)
 
 #### Defaults
 * All defaults are defined under whiteteam. These defaults are used if they are not defined for a team. The most common example is the timeout property which specifies after how many seconds a check should be cancled.
@@ -51,4 +48,4 @@ The rails frontend is a fully functional application that can authenticate membe
 
 
 ## License
-Cyberengine is released under the [MIT License](http://www.opensource.org/licenses/MIT)
+ScoringEngine is released under the [MIT License](http://www.opensource.org/licenses/MIT)

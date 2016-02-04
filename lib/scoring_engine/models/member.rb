@@ -25,19 +25,19 @@ module ScoringEngine
       def can_update?(member) member.whiteteam? end
       def can_destroy?(member) member.whiteteam? end
       def can_overview_users?
-        return true if Cyberengine.can_show_all_blueteam_users
+        return true if ScoringEngine.can_show_all_blueteam_users
         return true if Blueteam.can_show_all_blueteam_users
         return true if Redteam.can_show_all_blueteam_users
         false
       end
       def can_overview_properties?
-        return true if Cyberengine.can_show_all_blueteam_properties
+        return true if ScoringEngine.can_show_all_blueteam_properties
         return true if Blueteam.can_show_all_blueteam_properties && blueteam?
         return true if Redteam.can_show_all_blueteam_properties && redteam?
         false
       end
       def can_scoreboard?
-        return true if Cyberengine.can_show_all_blueteam_scores
+        return true if ScoringEngine.can_show_all_blueteam_scores
         return true if Blueteam.can_show_all_blueteam_scores && blueteam?
         return true if Redteam.can_show_all_blueteam_scores && redteam?
         false
