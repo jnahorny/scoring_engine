@@ -12,9 +12,11 @@ class User < ActiveRecord::Base
   validates :service, presence: { message: "must exist" }
   validate :right_team?
 
-  def self.to_csv; all.map{|u| "#{u.username},#{u.password}"}.join("\r\n") end
-  def self.random; order('RANDOM()').first || nil end
-  def self.ordered; order('team_id ASC, server_id ASC, service_id ASC, username ASC') end
+  private
+  def self.random
+    user = self.order('RANDOM()').first
+    user ? user : nil
+  end
 
   def right_team?
     team = Team.find_by_id(team_id)
@@ -28,14 +30,5 @@ class User < ActiveRecord::Base
     end
   end
 
-  # Standard permissions
-  def can_show?(member,team_id) member.whiteteam? || member.can_overview_users? || service.can_show?(member,team_id) && member.team_id == team_id end
-  def self.can_show?(member,team_id) member.whiteteam? || member.team_id == team_id end
-  def self.can_new?(member,team_id) member.whiteteam? end
-  def can_edit?(member,team_id) member.whiteteam? || member.team_id == team_id end
-  def self.can_edit?(member,team_id) member.whiteteam? || member.team_id == team_id end
-  def can_create?(member,team_id) member.whiteteam? end
-  def can_update?(member,team_id) member.whiteteam? || member.team_id == team_id end
-  def can_destroy?(member,team_id) member.whiteteam? end
 
 end

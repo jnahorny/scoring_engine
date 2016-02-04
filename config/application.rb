@@ -2,6 +2,10 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require ::File.expand_path('../../lib/scoring_engine/models',  __FILE__)
+include ScoringEngine::Models
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))

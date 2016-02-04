@@ -14,14 +14,52 @@ class Check < ActiveRecord::Base
   validate :right_team?
 
 
-  def self.minimal; select('team_id,server_id,service_id,id,passed,round,created_at') end
-  def self.passing; where("passed = ?", true) end
-  def self.failing; where("passed = ?", false) end
-  def self.ordered; order('team_id ASC, server_id ASC, service_id ASC, round DESC, id DESC') end
-  def self.latest; order('round DESC').first end
-  def self.last_round; self.latest ? self.latest.round : 0 end
-  def self.next_round; self.last_round == 0 ? 0 : self.last_round + 1 end
-  def self.bargraph; [self.points] end
+  private
+  def self.ordered
+    order('round ASC')
+  end
+
+  def self.next_round
+    latest = self.latest
+    latest ? latest.round + 1 : 1
+  end
+
+  def self.latest
+    order('round DESC').first
+  end
+
+  def self.bargraph
+    [self.points]
+  end
+
+  def self.points
+    first = self.first
+    return 0 unless first
+    available_points = first.service.available_points
+    percent = self.percent
+    (available_points*percent).round(1)
+  end
+
+  def self.passing
+    where("passed = ?", true)
+  end
+
+  def self.failing
+    where("passed = ?", false)
+  end
+
+  def self.percent
+    total = count.to_f
+    return 0.round(1) if total == 0
+    pass = passing.count.to_f
+    pass / total
+  end
+
+  def self.last_round
+    latest = self.latest
+    return 0 unless latest
+    latest.round
+  end
 
   def right_team?
     team = Team.find_by_id(team_id)
@@ -35,12 +73,4 @@ class Check < ActiveRecord::Base
     end
   end
 
-  # Standard permissions
-  def can_show?(member,team_id) member.whiteteam? || member.team_id == team_id end
-  def self.can_show?(member,team_id) member.whiteteam? || member.team_id == team_id end
-  def self.can_new?(member,team_id) member.whiteteam? end
-  def can_edit?(member,team_id) member.whiteteam? end
-  def can_create?(member,team_id) member.whiteteam? end
-  def can_update?(member,team_id) member.whiteteam? end
-  def can_destroy?(member,team_id) member.whiteteam? end
 end
